@@ -22,25 +22,26 @@ export default function Home() {
     school: inputSchool,
     grade: inputGrade,
   };
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputName(event.target.value);
   };
-  const handleChangeEmail = (event: any) => {
+  const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputEmail(event.target.value);
   };
-  const handleChangeChallenge = (event: any) => {
+  const handleChangeChallenge = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     setInputChallenge(event.target.value);
   };
-  const handleChangeSchool = (event: any) => {
+  const handleChangeSchool = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputSchool(event.target.value);
   };
-  const handleChangeGrade = (event: any) => {
+  const handleChangeGrade = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputGrade(event.target.value);
   };
   const handleAdd = async () => {
-    let { data, error } = await supabase.rpc("auto_number");
-    if (error) console.error(error);
-    else console.log(data);
+    await supabase.rpc("auto_number");
+
     const messageContainer = document.getElementById("message-container");
     if (messageContainer) {
       messageContainer.innerHTML = "";

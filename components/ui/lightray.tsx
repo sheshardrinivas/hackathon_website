@@ -2,6 +2,14 @@
 import { useRef, useEffect, useState } from "react";
 import { Renderer, Program, Triangle, Mesh } from "ogl";
 
+// A better way to define the Uniform type based on its structure
+// This avoids relying on internal OGL type exports that may not be available.
+type OglUniformValue = number | number[];
+
+interface OglUniform {
+  value: OglUniformValue;
+}
+
 export type RaysOrigin =
   | "top-center"
   | "top-left"
@@ -83,12 +91,13 @@ const LightRays: React.FC<LightRaysProps> = ({
   className = " ",
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const uniformsRef = useRef<any>(null);
+  // Correctly type the useRef hook to hold an object with OglUniform values.
+  const uniformsRef = useRef<Record<string, OglUniform> | null>(null);
   const rendererRef = useRef<Renderer | null>(null);
   const mouseRef = useRef({ x: 0.5, y: 0.5 });
   const smoothMouseRef = useRef({ x: 0.5, y: 0.5 });
   const animationIdRef = useRef<number | null>(null);
-  const meshRef = useRef<any>(null);
+  const meshRef = useRef<Mesh | null>(null);
   const cleanupFunctionRef = useRef<(() => void) | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -178,7 +187,7 @@ float noise(vec2 st) {
 }
 
 float rayStrength(vec2 raySource, vec2 rayRefDirection, vec2 coord,
-                  float seedA, float seedB, float speed) {
+                   float seedA, float seedB, float speed) {
   vec2 sourceToCoord = coord - raySource;
   vec2 dirNorm = normalize(sourceToCoord);
   float cosAngle = dot(dirNorm, rayRefDirection);
@@ -214,11 +223,11 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
   }
 
   vec4 rays1 = vec4(1.0) *
-               rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349,
-                           1.5 * raysSpeed);
+              rayStrength(rayPos, finalRayDir, coord, 36.2214, 21.11349,
+                          1.5 * raysSpeed);
   vec4 rays2 = vec4(1.0) *
-               rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234,
-                           1.1 * raysSpeed);
+              rayStrength(rayPos, finalRayDir, coord, 22.3991, 18.0234,
+                          1.1 * raysSpeed);
 
   fragColor = rays1 * 0.5 + rays2 * 0.4;
 
@@ -246,7 +255,9 @@ void main() {
   gl_FragColor  = color;
 }`;
 
-      const uniforms = {
+      // This is the correct way to initialize the uniforms object
+      // with the OglUniform interface.
+      const uniforms: Record<string, OglUniform> = {
         iTime: { value: 0 },
         iResolution: { value: [1, 1] },
 
@@ -265,19 +276,22 @@ void main() {
         noiseAmount: { value: noiseAmount },
         distortion: { value: distortion },
       };
+
+      // Assign the correctly typed uniforms object to the ref.
       uniformsRef.current = uniforms;
 
       const geometry = new Triangle(gl);
       const program = new Program(gl, {
         vertex: vert,
         fragment: frag,
+        // The `uniforms` object is already in the correct format.
         uniforms,
       });
       const mesh = new Mesh(gl, { geometry, program });
       meshRef.current = mesh;
 
       const updatePlacement = () => {
-        if (!containerRef.current || !renderer) return;
+        if (!containerRef.current || !renderer || !uniformsRef.current) return;
 
         renderer.dpr = Math.min(window.devicePixelRatio, 2);
 
@@ -288,11 +302,12 @@ void main() {
         const w = wCSS * dpr;
         const h = hCSS * dpr;
 
-        uniforms.iResolution.value = [w, h];
+        // Correct way to assign values to uniform objects without type assertions.
+        uniformsRef.current.iResolution.value = [w, h];
 
         const { anchor, dir } = getAnchorAndDir(raysOrigin, w, h);
-        uniforms.rayPos.value = anchor;
-        uniforms.rayDir.value = dir;
+        uniformsRef.current.rayPos.value = anchor;
+        uniformsRef.current.rayDir.value = dir;
       };
 
       const loop = (t: number) => {
@@ -300,7 +315,7 @@ void main() {
           return;
         }
 
-        uniforms.iTime.value = t * 0.001;
+        uniformsRef.current.iTime.value = t * 0.001;
 
         if (followMouse && mouseInfluence > 0.0) {
           const smoothing = 0.92;
@@ -312,7 +327,7 @@ void main() {
             smoothMouseRef.current.y * smoothing +
             mouseRef.current.y * (1 - smoothing);
 
-          uniforms.mousePos.value = [
+          uniformsRef.current.mousePos.value = [
             smoothMouseRef.current.x,
             smoothMouseRef.current.y,
           ];
@@ -393,6 +408,7 @@ void main() {
     const u = uniformsRef.current;
     const renderer = rendererRef.current;
 
+    // Direct assignment without type assertions
     u.raysColor.value = hexToRgb(raysColor);
     u.raysSpeed.value = raysSpeed;
     u.lightSpread.value = lightSpread;
