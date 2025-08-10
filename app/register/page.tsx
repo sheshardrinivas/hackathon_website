@@ -2,7 +2,7 @@
 
 import { supabase } from "@/utils/supabase";
 import Component from "@/components/ui/back-button";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Alert from "@/components/ui/alert";
 import { unstable_ViewTransition as ViewTransition } from "react";

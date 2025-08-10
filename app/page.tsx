@@ -1,4 +1,3 @@
-import { BackgroundBeams } from "@/components/ui/background-beams";
 import LightRays from "@/components/ui/lightray";
 import { unstable_ViewTransition as ViewTransition } from "react";
 import Button_with_link from "@/components/client/Button";
@@ -25,8 +24,6 @@ export default function Home() {
                 <Button_with_link />
               </div>
             </div>
-
-            {/*<BackgroundBeams />*/}
           </section>
         </ViewTransition>
       </div>
