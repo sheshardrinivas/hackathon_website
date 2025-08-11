@@ -76,7 +76,7 @@ const getAnchorAndDir = (
 };
 
 const LightRays: React.FC<LightRaysProps> = ({
-  raysOrigin = "top-left",
+  raysOrigin = "top-center",
   raysColor = DEFAULT_COLOR,
   raysSpeed = 1,
   lightSpread = 2,
