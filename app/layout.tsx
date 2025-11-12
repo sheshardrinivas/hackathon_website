@@ -31,6 +31,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="TC3bPiftx-MEaKT_AipCcRSyIQoGr3xFB0M3QUeLL5I"
+        />
+      </head>
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} ${tomorrow.variable} antialiased`}
       >
