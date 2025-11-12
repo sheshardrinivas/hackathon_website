@@ -6,7 +6,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Alert from "@/components/ui/alert";
 import { unstable_ViewTransition as ViewTransition } from "react";
-
 export default function Home() {
   const [inputName, setInputName] = useState("");
   const [inputEmail, setInputEmail] = useState("");
