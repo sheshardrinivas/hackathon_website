@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://anis-hackathon.vercel.app
+
+# Sitemaps
+Sitemap: https://anis-hackathon.vercel.app/sitemap.xml

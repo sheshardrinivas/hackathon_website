@@ -18,10 +18,11 @@ const tomorrow = Tomorrow({
   variable: "--font-tomorrow",
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "ANIS HACKATHON",
   description:
-    "First ever hackathon for school students in india to learn and grow",
+    "First ever hackathon for school students in india to learn and grow.",
+  keywords: ["ANIS", "hackathon", "science", "technology", "computer"],
 };
 
 export default function RootLayout({
