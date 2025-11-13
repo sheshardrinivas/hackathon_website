@@ -13,12 +13,12 @@ export default function Home() {
           <LightRays />
           <section id="home" className="text">
             <div className=" flex h-screen items-center justify-center flex-col px-4 gap-6">
-              <h2 className="bg-clip-text text-4xl text-transparent text-center  bg-gradient-to-tl from-neutral-950 to-neutral-900 dark:from-neutral-900 dark:to-neutral-400  md:text-4xl lg:text-7xl font-sans   relative z-20 font-bold tracking-tight">
+              <h2 className="bg-clip-text text-4xl text-transparent text-center  bg-gradient-to-tl from-neutral-950 to-neutral-900 dark:from-neutral-900 dark:to-neutral-400  tracking-widest  md:text-4xl lg:text-7xl font-sans   relative z-20 font-normal ">
                 ANIS HACKATHON 2025
                 <br />
               </h2>
 
-              <p className="text-1xl brightness-[85%]  md:text-1xl lg:text-2xl  bg-clip-text text-transparent bg-gradient-to-l from-blue-400 to-emerald-400 text-center">
+              <p className="text-1xl brightness-[85%]  md:text-1xl lg:text-2xl  bg-clip-text text-transparent bg-gradient-to-l from-blue-400 to-emerald-400 text-center tracking-widest  ">
                 First ever hackathon for school students.
               </p>
 
