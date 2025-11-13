@@ -18,7 +18,7 @@ const tomorrow = Tomorrow({
   variable: "--font-tomorrow",
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "ANIS HACKATHON",
   description:
     "First ever hackathon for school students in india to learn and grow.",
