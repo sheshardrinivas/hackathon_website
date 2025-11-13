@@ -23,6 +23,9 @@ export const metadata = {
   description:
     "First ever hackathon for school students in india to learn and grow.",
   keywords: ["ANIS", "hackathon", "science", "technology", "computer"],
+  alternates: {
+    canonical: "https://anis-hackathon.vercel.app",
+  },
 };
 
 export default function RootLayout({
