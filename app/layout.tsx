@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Tomorrow } from "next/font/google";
 import "./globals.css";
-
+import { unstable_ViewTransition as ViewTransition } from "react";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -34,18 +34,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <meta
-          name="google-site-verification"
-          content="TC3bPiftx-MEaKT_AipCcRSyIQoGr3xFB0M3QUeLL5I"
-        />
-      </head>
-      <body
-        className={`${inter.variable} ${jetbrainsMono.variable} ${tomorrow.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <ViewTransition>
+      <html lang="en">
+        <head></head>
+        <body
+          className={`${inter.variable} ${jetbrainsMono.variable} ${tomorrow.variable} antialiased`}
+        >
+          {children}
+        </body>
+      </html>
+    </ViewTransition>
   );
 }

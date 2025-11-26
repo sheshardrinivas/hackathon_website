@@ -37,6 +37,12 @@ function Header() {
         >
           Challenges
         </Link>
+        <Link
+          href="/#judges"
+          className="opacity-100 hover:opacity-40 transition-all duration-300 "
+        >
+          Judges
+        </Link>
       </nav>
     </header>
   );
