@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-function Header() {
+export default function Header() {
   return (
     <header
       className="flex my-6  border-[1px] justify-between items-center justify-self-center rounded-[10rem] backdrop-blur-[10px] font-mono py-2 px-6 space-x-6 w-[90%] fixed top-0 z-50 "
@@ -47,4 +47,3 @@ function Header() {
     </header>
   );
 }
-export default Header;
